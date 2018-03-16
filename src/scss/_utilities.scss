@@ -1,0 +1,100 @@
+@mixin breakpoint($point) {
+    @if $point==large {
+        @media (min-width: $large-up) {
+            @content ;
+        }
+    }
+    @else if $point==mediumonly {
+        @media (min-width: $medium-up) and (max-width: $large) {
+            @content ;
+        }
+    }
+    @else if $point==mediumdown {
+        @media (max-width: $large) {
+            @content ;
+        }
+    }
+    @else if $point==medium {
+        @media (min-width: $medium-up) {
+            @content ;
+        }
+    }
+    @else if $point==smallonly {
+        @media (max-width: $medium) {
+            @content ;
+        }
+    }
+}
+
+@mixin link-color( $color: $red) {
+    color: $red;
+    transition: color 0.2s;
+    &:hover,
+    &:focus,
+    &:active {
+        color: lighten($color, 10%);
+    }
+}
+
+
+/**
+* Global classes 
+*/
+
+.wrapper {
+    max-width: $max-page-width;
+    margin: 0 auto;
+    padding: $column-padding;
+    .wrapper {
+        padding: 0;
+    }
+}
+
+.is-hidden {
+    display: none !important;
+}
+
+.is-text-centered {
+    text-align: center;
+}
+
+.float-right {
+    @include breakpoint(medium) {
+        float: right;
+        margin-left: 30px;
+        margin-bottom: 15px;
+    }
+}
+
+.float-left {
+    @include breakpoint(medium) {
+        margin-right: 30px;
+        margin-bottom: 15px;
+        float: left;
+    }
+}
+
+/** Utility classes for extending **/
+
+.heading {
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: $bold;
+}
+
+.large-heading {
+    @extend .heading;
+    font-weight: $heavy-bold;
+    font-size: $large-heading-font-size-mobile;
+    @include breakpoint(large) {
+        font-size: $large-heading-font-size;
+    }
+}
+
+.medium-heading {
+    @extend .heading;
+    font-size: $medium-heading-font-size-mobile;
+    @include breakpoint(large) {
+        font-size: $medium-heading-font-size;
+    }
+}
